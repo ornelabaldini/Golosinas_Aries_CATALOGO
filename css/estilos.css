@@ -1,0 +1,837 @@
+/* ==============================
+   Root / variables globales
+   ============================== */
+/* Define colores y valores reusables */
+:root {
+  /* color principal violeta */
+  --primary: #6a1b9a;
+  /* color acento turquesa/verde */
+  --accent: #00b894;
+  /* color de fondo general de la página */
+ --bg: #1c2a33;
+  /* color de texto por defecto */
+  --text: #0b0c00;
+  /* altura estimada del header (se usa para empujar contenido) */
+  --header-h: 80px;
+  /* ancho máximo de contenido central */
+  --content-max-w: 1200px;
+  /* tamaño base de fuente (puedes ajustar si quieres escalar todo) */
+  --base-font: 13px;
+}
+
+/* ==============================
+   Reset / básicos
+   ============================== */
+/* box-sizing global para evitar problemas de cálculo de ancho */
+* {
+  box-sizing: border-box;
+}
+
+/* estilos base del html y body */
+html, body {
+  margin: 0;                            /* quita margen por defecto del navegador */
+  padding: 0;                           /* quita padding por defecto */
+  min-width: 100vw;                     /* evita que se reduzca el ancho de la página */
+  overflow-x: hidden;                   /* evita scroll horizontal inesperado */
+  font-family: 'Roboto', sans-serif;    /* fuente por defecto */
+  background: var(--bg);                /* color de fondo global */
+  color: var(--text);                   /* color de texto global */
+  font-size: var(--base-font);          /* tamaño base de fuente */
+}
+
+/* ==============================
+   Header / barra superior fija
+   ============================== */
+header {
+  background: linear-gradient(135deg, #6a1b9a, #ab47bc); /* degradado de fondo del header */
+  padding: 0.2rem;                                       /* espacio interno del header */
+  text-align: center;                                  /* centra el contenido textual */
+  position: fixed;                                     /* fija el header en la parte superior */
+  top: 0;                                              /* posicion arriba: 0 */
+  left: 0;                                             /* pegado a la izquierda */
+  right: 0;                                            /* pegado a la derecha */
+  z-index: 1000;                                       /* z-index alto para estar encima del contenido */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);               /* sombra sutil debajo */
+  width: 100%;                                         /* que ocupe todo el ancho */
+  max-width: 100vw;                                    /* evitar overflow por ancho */
+  box-sizing: border-box;                              /* asegurar box-sizing dentro del header */
+  display: flex;                                       /* layout flex para alinear elementos */
+  justify-content: space-between;                      /* espacio entre logo y nav */
+  align-items: center;                                 /* centra verticalmente los elementos */
+  flex-wrap: wrap;                                     /* permite que el contenido salte a la siguiente línea */
+  gap: 0.5rem;                                           /* separación entre elementos flex */
+  min-height: var(--header-h);                         /* altura mínima definida por la variable */
+}
+
+/* contenedor del logo dentro del header */
+.logo-contenedor img {
+  max-width: 110px;                                    /* ancho máximo del logo */
+  height: auto;                                        /* altura automática para mantener proporción */
+  border-radius: 12px;                                 /* bordes redondeados en la imagen */
+  filter: drop-shadow(0 2px 8px rgba(106,27,154,0.3)); /* sombra externa para destacar */
+}
+
+/* contenedor del título (centro del header) */
+.titulo-contenedor {
+  flex: 1;                                             /* ocupa espacio restante */
+  text-align: center;                                  /* centra su contenido */
+  overflow: hidden;                                    /* oculta contenido que se desborda */
+  box-sizing: border-box;                              /* asegurar box-sizing */
+  max-width: 100vw;                                    /* no exceder el ancho de la ventana */
+  padding: 0 1rem;                                     /* separación interna horizontal */
+  font-size: 1rem;                                     /* tamaño base para contenedor */
+}
+
+/* estilo del h1 dentro del título */
+.titulo-contenedor h1 {
+  font-size: 1.5rem;                                  /* tamaño del título (ajustado para no ser gigante) */
+  margin: 0 0 0.5rem 0;                                /* margen inferior pequeño */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);            /* ligera sombra de texto para legibilidad */
+  white-space: nowrap;                                 /* evita salto de línea en el título */
+  overflow: hidden;                                    /* oculta el texto que se desborda */
+  text-overflow: ellipsis;                             /* muestra "..." si corta el texto */
+  line-height: 1.2;                                    /* altura de línea */
+  font-weight: bold;                                   /* texto en negrita */
+  padding: 0 1rem;                                     /* padding horizontal */
+}
+
+/* ==============================
+   Navegación principal (links)
+   ============================== */
+nav {
+  display: flex;                                       /* layout flex para los enlaces */
+  justify-content: center;                             /* centra la navegación */
+  align-items: center;                                 /* alinea verticalmente */
+  gap: 1.5rem;                                         /* separación entre enlaces */
+  flex-wrap: wrap;                                     /* permite que los enlaces salten línea si hace falta */
+}
+
+/* estilo de cada enlace del nav */
+nav a {
+  display: inline-block;                               /* inline-block para padding y margin */
+  color: #070000;                                      /* color de texto de los enlaces */
+  text-decoration: none;                               /* sin subrayado */
+  font-weight: bold;                                   /* negrita */
+  font-size: 2rem;                                  /* tamaño razonable para el nav */
+  transition: color 0.3s;                              /* transición suave al hover */
+  margin: 0.25rem;                                     /* pequeño margen alrededor */
+}
+
+/* color al pasar el mouse por encima */
+nav a:hover {
+  color: var(--accent);
+}
+
+/* ==============================
+   Hero section (cabecera visual)
+   ============================== */
+.hero {
+  text-align: center;                                  /* centra el texto del hero */
+  padding-top: 10rem;                             /* espacio extra arriba (visual) */
+  max-width: 100vw;                                    /* no exceder ancho de ventana */
+  background-size: cover;                              /* si tiene imagen, que cubra */
+  background-position: center;                         /* centra la imagen de fondo */
+  color: #000;                                         /* color de texto del hero */
+  position: relative;                                  /* contenedor relativo para overlays */
+  z-index: 1;                                          /* sobre algunos elementos pero debajo del header */
+}
+
+/* overlay decorativo dentro del hero */
+.hero-overlay {
+  position: absolute;                                  /* posición absoluta dentro del hero */
+  width: 100%;                                         /* ocupa ancho completo */
+  height: 80%;                                         /* altura del overlay */
+  margin-top: 4rem;                                    /* separación superior visual */
+  top: 0;                                              /* arriba del hero */
+  left: 0;                                             /* a la izquierda */
+  opacity: 1;                                          /* opacidad completa (puedes bajar para más transparencia) */
+  background: linear-gradient(135deg, rgba(106,27,154,0.6), rgba(0,184,148,0.6)); /* degradado semitransparente */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);              /* sombra suave */
+  backdrop-filter: blur(2px);                          /* desenfoque del fondo (si el navegador lo soporta) */
+  z-index: 1;                                          /* por debajo del contenido del hero */
+}
+
+/* títulos dentro del hero */
+.hero h2, .hero p {
+  position: relative;                                  /* posicionamiento relativo (frente al overlay) */
+  z-index: 1;                                          /* encima del overlay */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);            /* sombra para legibilidad */
+  font-size: 2rem;                                  /* tamaño del texto en hero (ajustado) */
+  margin: 2rem 0;                                    /* margen vertical */
+  padding: 0 1rem;                                     /* padding horizontal */
+}
+
+/* botones del hero */
+.hero-buttons {
+  display: flex;                                       /* flex para alinear botones */
+  justify-content: center;                             /* centrado horizontal */
+  gap: 1rem;                                           /* espacio entre botones */
+  margin-top: 1rem;                                    /* separación superior */
+  position: relative;                                  /* relativo (para posibles overlays) */
+  z-index: 2;                                          /* encima del overlay */
+  font-size: 1rem;                                     /* tamaño base de botones */
+}
+
+/* estilo general de botones del hero */
+.hero-buttons .btn {
+  padding: 0.6rem 1rem;                                /* padding interno */
+  background: linear-gradient(45deg, var(--primary), var(--accent)); /* degradado */
+  color: #fff;                                         /* texto blanco */
+  border: none;                                        /* sin borde */
+  border-radius: var(--border-radius);                 /* radio de los bordes */
+  cursor: pointer;                                     /* cursor mano */
+  font-size: 1rem;                                     /* tamaño de texto interno */
+  transition: background 0.3s, transform 0.3s;         /* transiciones */
+}
+
+/* hover para los botones */
+.hero-buttons .btn:hover {
+  background: linear-gradient(45deg, var(--accent), var(--primary)); /* invertir degradado */
+  transform: scale(1.03);                              /* pequeño zoom */
+}
+
+/* ==============================
+   Destacados
+   ============================== */
+.destacados {
+  text-align: center;                                  /* centra el texto */
+  padding: 0.8rem 1rem;                                /* padding interno cómodo */
+  background: #fff;                                    /* fondo blanco */
+  border-radius: var(--border-radius);                 /* bordes redondeados */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);             /* sombra suave */
+  font-size: 1rem;                                     /* tamaño de fuente */
+  max-width: var(--content-max-w);                     /* ancho máximo del bloque */
+  margin: 1rem auto;                                   /* centrado y margen vertical */
+  width: 100%;                                         /* ocupa 100% del contenedor */
+  box-sizing: border-box;                              /* box-sizing */
+}
+
+/* título dentro de destacados */
+.destacados h2 {
+  color: var(--primary);                               /* color principal */
+  margin-bottom: 0.75rem;                              /* separación inferior */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.15);           /* sombra ligera */
+  font-size: 2rem;                                     /* tamaño del título destacado */
+  text-align: center;                                  /* centrado */
+}
+
+/* ==============================
+   Portfolio / Catálogo (grid)
+   ============================== */
+.portfolio {
+  display: grid;                                       /* grid layout para tarjetas */
+  grid-template-columns: repeat(4, 1fr);               /* 4 columnas en desktop */
+  gap: 1rem;                                           /* espacio entre tarjetas */
+  max-width: var(--content-max-w);                     /* ancho máximo */
+  margin: 0 auto;                                      /* centro horizontal */
+  padding: 0.5rem 0.2rem;                              /* padding interno */
+  width: 100%;                                         /* ocupa todo el ancho disponible */
+  box-sizing: border-box;                              /* box-sizing */
+}
+
+/* alias por si usas .catalogo */
+.catalogo {
+  display: grid;                                       /* grid también para catalogo */
+  grid-template-columns: inherit;                      /* hereda columnas (por simplicidad) */
+  gap: 1rem;                                           /* gap igual */
+  width: 100%;                                         /* ancho completo */
+  box-sizing: border-box;                              /* box-sizing */
+}
+
+/* ==============================
+   Card (tarjeta de producto)
+   ============================== */
+.card {
+  background: #fff;                                    /* fondo blanco para la tarjeta */
+  border: 2px solid var(--accent);                     /* borde con color de acento */
+  border-radius: var(--border-radius);                 /* bordes redondeados */
+  padding: 1rem;                                       /* padding interno */
+  text-align: center;                                  /* centra el texto */
+  transition: transform 0.3s, box-shadow 0.3s;         /* transiciones suaves */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);             /* sombra sutil */
+  font-size: 0.95rem;                                  /* tamaño de fuente para el contenido */
+  cursor: pointer;                                     /* cursor en hover */
+  display: flex;                                       /* flex para layout interno */
+  flex-direction: column;                              /* columna vertical */
+  align-items: stretch;                                /* estira elementos interiores */
+  justify-content: flex-start;                         /* alineación inicial */
+  height: 100%;                                        /* que la tarjeta ocupe el alto del grid cell */
+  box-sizing: border-box;                              /* box-sizing */
+  min-height: 260px;                                   /* altura mínima para consistencia visual */
+}
+
+/* efecto hover en la tarjeta */
+.card:hover {
+  transform: translateY(-6px);                         /* sube ligeramente */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);            /* sombra más pronunciada */
+}
+
+/* imagen principal de la tarjeta */
+.card img {
+  width: 100%;                                         /* ocupa todo el ancho de la tarjeta */
+  border-radius: 8px;                                  /* bordes redondeados de la imagen */
+  margin-bottom: 0.5rem;                               /* separación hacia el contenido */
+  height: 220px;                                       /* altura fija para consistencia */
+  object-fit: cover;                                   /* cubre sin deformar (recorta si hace falta) */
+  transition: transform 0.3s;                          /* transición para posibles efectos */
+}
+
+/* título de producto dentro de la card */
+.card h3 {
+  color: var(--primary);                               /* color del título */
+  margin: 0.25rem 0;                                   /* margen vertical pequeño */
+  font-size: 1.25rem;                                  /* tamaño razonable para h3 */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);            /* sombra muy suave */
+  display: flex;                                       /* flex para centrar verticalmente si hay iconos */
+  align-items: center;                                 /* alineación vertical */
+  justify-content: center;                             /* centrado horizontal */
+  text-align: center;                                  /* centrado */
+  padding: 0 0.5rem;                                   /* relleno horizontal */
+  flex-grow: 0;                                        /* no expandir */
+}
+
+/* descripción breve dentro de la tarjeta */
+.card p {
+  margin: 0.25rem 0 0.5rem 0;                          /* márgenes para el párrafo */
+  font-size: 1rem;                                     /* tamaño de fuente legible */
+  color: #555;                                         /* color gris para el texto secundario */
+  font-weight: 600;                                    /* seminegrita */
+  line-height: 1.2;                                    /* altura de línea compacta */
+  overflow: hidden;                                    /* oculta el exceso de texto */
+  display: -webkit-box;                                /* necesario para -webkit-line-clamp */
+  line-clamp: 3;                               /* corta a 3 líneas en webkit */
+  -webkit-box-orient: vertical;                        /* orientación vertical para el clamping */
+}
+
+/* botón compacto dentro de la card */
+.card button {
+  padding: 0.45rem 0.8rem;                             /* padding interior */
+  background: linear-gradient(45deg, var(--primary), var(--accent)); /* degradado */
+  color: #fff;                                         /* texto blanco */
+  border: none;                                        /* sin borde */
+  border-radius: var(--border-radius);                 /* radio del botón */
+  cursor: pointer;                                     /* cursor en hover */
+  transition: background 0.3s, transform 0.2s;         /* transiciones */
+  font-size: 0.9rem;                                   /* tamaño de texto del botón */
+  margin-top: auto;                                    /* empuja el botón hacia el final de la tarjeta */
+  width: 100%;                                         /* ocupa todo el ancho disponible */
+  box-sizing: border-box;                              /* box-sizing */
+  text-transform: uppercase;                           /* texto en mayúsculas */
+  font-weight: bold;                                   /* negrita */
+  letter-spacing: 0.04rem;                             /* ligero tracking */
+}
+
+/* hover del botón */
+.card button:hover {
+  background: linear-gradient(45deg, var(--accent), var(--primary));  /* invertir degradado */
+  transform: translateY(-2px);                         /* pequeño movimiento hacia arriba */
+}
+
+
+/* ==============================
+   Modal (pop-up) de catálogo
+   ============================== */
+.modal {
+  display: none;                                       /* oculto por defecto */
+  position: fixed;                                     /* fijo para cubrir toda la pantalla */
+  z-index: 1300;                                       /* z-index más alto que el header */
+  left: 0;                                             /* empieza en la izquierda */
+  top: 0;                                              /* empieza arriba */
+  width: 100%;                                         /* ocupa todo el ancho */
+  height: 100%;                                        /* ocupa todo el alto */
+  background-color: rgba(0,0,0,0.6);                   /* overlay semitransparente */
+  justify-content: center;                             /* centra horizontalmente el contenido del modal */
+  align-items: center;                                 /* centra verticalmente */
+  padding: 1rem;                                       /* padding interno para pantallas pequeñas */
+  box-sizing: border-box;                              /* box-sizing */
+  overflow: auto;                                      /* scroll interno si el contenido es alto */
+}
+
+/* contenido interior del modal */
+.modal-content {
+  max-width: 90%;                                      /* ancho máximo relativo a la ventana */
+  max-height: 90%;                                     /* altura máxima relativa */
+  background: #6a1b9a;                                 /* fondo morado sólido del modal */
+  color: #fff;                                         /* texto blanco dentro del modal */
+  padding: 1rem;                                       /* padding interior */
+  border-radius: 12px;                                 /* bordes redondeados */
+  text-align: center;                                  /* centrado de texto */
+  overflow: hidden;                                    /* evita overflow visible dentro del modal */
+  position: relative;                                  /* relativo para la cruz de cierre y flechas */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);             /* sombra alrededor del modal */
+  display: flex;                                       /* flex para composición interna */
+  flex-direction: column;                              /* direcc vertical */
+  align-items: center;                                 /* centra horizontalmente */
+  justify-content: center;                             /* centra verticalmente */
+  gap: 0.1rem;                                           /* espacio entre elementos */
+  animation: fadeIn 0.25s ease;                        /* animación de aparición */
+  font-size: 2rem;
+}
+
+/* imagen dentro del modal */
+.modal-content img {
+  max-width: 100%;                                     /* que la imagen no exceda el ancho del modal */
+  max-height: 70vh;                                    /* limitar la altura a 70% de la ventana */
+  object-fit: contain;                                 /* mantener proporción completa */
+  border-radius: 8px;                                  /* bordes ligeramente redondeados */
+  cursor: zoom-in;                                     /* cursor para indicar zoom posible */
+  transition: transform 0.3s ease;                     /* transición para .zoomed */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);             /* sombra de la imagen */
+  z-index: 1;                                          /* capa base dentro del modal */
+}
+
+/* clase que amplia la imagen (zoom) */
+.modal-content img.zoomed {
+  transform: scale(1.9);                               /* escala grande (no exagerada) */
+  cursor: zoom-out;                                    /* cursor para reducir */
+  z-index: 10;                                         /* por encima de otros elementos */
+}
+
+/* cruz para cerrar */
+.close {
+  position: absolute;                                  /* absoluta dentro de modal-content */
+  top: 10px;                                           /* a 10px desde arriba */
+  right: 20px;                                         /* a 20px desde la derecha */
+  font-size: 1.6rem;                                   /* tamaño visible, no gigante */
+  font-weight: bold;                                   /* negrita */
+  cursor: pointer;                                     /* cursor de mano */
+  z-index: 200;                                        /* por encima de todo dentro del modal */
+  user-select: none;                                   /* evita selección accidental */
+}
+
+/* hover de la cruz */
+.close:hover {
+  color: #000;                                         /* en hover cambia a oscuro para contraste */
+}
+
+/* botones de navegación (flechas) dentro del modal */
+.modal-content .prev,
+.modal-content .next {
+  position: absolute;                                  /* posición absoluta dentro del modal */
+  top: 50%;                                            /* centrado vertical */
+  transform: translateY(-50%);                         /* corrección de centrado vertical */
+  width: 40px;                                         /* ancho del botón */
+  height: 40px;                                        /* alto del botón */
+  display: flex;                                       /* flex para centrar el símbolo */
+  justify-content: center;                             /* centrado horizontal */
+  align-items: center;                                 /* centrado vertical */
+  background: rgba(0, 0, 0, 0.8);                      /* fondo negro semi-opaco */
+  color: #fff;                                         /* símbolo en blanco */
+  font-size: 1.2rem;                                   /* tamaño del símbolo */
+  font-weight: bold;                                   /* negrita */
+  border: none;                                        /* sin borde */
+  border-radius: 50%;                                  /* botón circular */
+  cursor: pointer;                                     /* cursor en hover */
+  outline: none;                                       /* sin outline por defecto */
+  z-index: 101;                                        /* por encima de la imagen */
+  transition: background 0.2s;                         /* transición de fondo */
+}
+
+/* posición de cada flecha (izquierda/derecha) */
+.modal-content .prev { left: 12px; }
+.modal-content .next { right: 12px; }
+
+/* hover en flechas */
+.modal-content .prev:hover,
+.modal-content .next:hover { background: rgba(0, 0, 0, 0.95); }
+
+/* botón genérico de carousel (si lo usas) */
+.carousel-btn {
+  padding: 0.3rem 0.6rem;                              /* padding pequeño */
+  margin: 0 0.3rem;                                    /* separación horizontal */
+  border: none;                                        /* sin borde */
+  background: var(--primary);                          /* fondo principal */
+  color: #fff;                                         /* texto blanco */
+  border-radius: var(--border-radius);                 /* radio de botón */
+  cursor: pointer;                                     /* cursor puntero */
+  transition: background 0.3s;                         /* transición suave */
+  font-size: 0.95rem;                                  /* tamaño de texto */
+  font-weight: bold;                                   /* negrita */
+  user-select: none;                                   /* evita selección */
+}
+
+/* hover para ese botón */
+.carousel-btn:hover { background: var(--accent); transform: scale(1.05); }
+
+/* ==============================
+   Buscador (centro del catálogo)
+   ============================== */
+.buscador {
+  text-align: center;                                  /* centra el buscador */
+  margin: 1rem 0;                                      /* margen arriba y abajo */
+  width: 100%;                                         /* ocupa el ancho disponible */
+  box-sizing: border-box;                              /* box-sizing */
+  max-width: 100vw;                                    /* no exceder ancho de pantalla */
+  padding: 0 1rem;                                     /* padding horizontal */
+  font-size: 1rem;                                     /* tamaño base */
+  display: flex;                                       /* flex para poder alinear iconos si se añaden */
+  justify-content: center;                             /* centrar horizontalmente */
+  align-items: center;                                 /* centrar verticalmente */
+  flex-direction: column;                              /* columna (input encima de botones) */
+  gap: 0.75rem;                                        /* separación entre elementos */
+}
+
+/* input de búsqueda */
+#search {
+  width: 90%;                                          /* ancho relativo */
+  max-width: 900px;                                    /* ancho máximo razonable */
+  padding: 0.6rem 0.9rem;                              /* padding interno */
+  border: 2px solid var(--accent);                     /* borde con color acento */
+  border-radius: var(--border-radius);                 /* bordes redondeados */
+  font-size: 1rem;                                     /* tamaño del texto del input */
+  outline: none;                                       /* quita outline por defecto (mejorar focus abajo) */
+  transition: border 0.2s, box-shadow 0.2s;            /* transición suave */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);             /* sombra sutil */
+  box-sizing: border-box;                              /* box-sizing */
+}
+
+/* estado focus del input para accesibilidad */
+#search:focus {
+  border-color: var(--primary);                        /* cambia color de borde al enfocar */
+  box-shadow: 0 0 8px rgba(106,27,154,0.25);          /* halo de foco */
+}
+
+/* estilo del contenedor de "no results" (link dentro formateado) */
+#no-results {
+  color: #444;                                         /* color del texto */
+  font-size: 0.95rem;                                  /* tamaño legible */
+  text-align: center;                                  /* centrado */
+  margin-top: 0.75rem;                                 /* separación superior */
+}
+
+/* estilo de enlace dentro de #no-results */
+#no-results a {
+  display: inline-block;                               /* inline-block para padding */
+  margin-top: 0.5rem;                                  /* separación */
+  padding: 0.5rem 0.8rem;                              /* padding para botón */
+  background: var(--accent);                           /* fondo acento */
+  color: #fff;                                         /* texto blanco */
+  border-radius: var(--border-radius);                 /* borde redondeado */
+  text-decoration: none;                               /* sin subrayado */
+  font-weight: bold;                                   /* negrita */
+  transition: background 0.2s, transform 0.15s;        /* transiciones */
+}
+
+/* hover del link de no-results */
+#no-results a:hover {
+  background: var(--primary);                          /* cambia a color primario */
+  transform: scale(1.03);                              /* ligero zoom */
+}
+
+/* ==============================
+   Main (contenedor principal)
+   ============================== */
+main {
+  max-width: var(--content-max-w);                     /* ancho máximo del contenido */
+  margin: 0 auto;                                      /* centrar horizontalmente */
+  width: 100%;                                         /* ocupar ancho */
+  box-sizing: border-box;                              /* box-sizing */
+  min-height: 60vh;                                    /* altura mínima para buena presencia */
+  font-size: 1rem;                                     /* tamaño base de fuente */
+  background: #fcfbfb;                                 /* fondo blanco para la zona principal */
+  border-radius: var(--border-radius);                 /* bordes redondeados */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);             /* sombra sutil */
+  overflow: visible;                                   /* overflow visible por defecto */
+  padding-bottom: 0.1rem;                                /* espacio inferior */
+  padding-top: 0.1rem;                                 /* espacio superior mínimo (el push principal lo hace .main arriba) */
+}
+
+/* ==============================
+   Footer y botones sociales
+   ============================== */
+footer {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+  margin-top: 1rem;
+
+}
+
+footer p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* estilos para botones sociales agrupados */
+.social-buttons {
+  display: flex;                                       /* flex horizontal */
+  align-items: center;                                 /* alinea verticalmente */
+  justify-content: center;                             /* centrado */
+  gap: 0.5rem;                                         /* separación entre botones */
+  flex-wrap: wrap;                                     /* permite saltos en pantallas pequeñas */
+  text-align: center;                                  /* centra el contenido textual */
+  margin-top: 0.1rem;                                  /* margen superior leve */
+  padding: 0.6rem 1.2rem;                              /* padding (si usas un contenedor tipo tag) */
+  color: var(--primary);                               /* color del texto (si aplica) */
+  font-weight: bold;                                   /* negrita */
+  border-radius: var(--border-radius);                 /* radio */
+  transition: background 0.3s, transform 0.3s, color 0.3s; /* transiciones */
+  font-size: 1rem;                                     /* tamaño de texto */
+  background: transparent;                             /* fondo por defecto transparente */
+}
+
+/* wrapper para botones sociales con separación superior */
+.social-buttons-wrapper {
+  margin-top: 0.01rem;                                 /* pequeño empuje superior */
+  padding-top: 1rem;                                   /* padding superior */
+  border-top: 1px solid #ccc;                          /* línea divisoria */
+  display: inline-block;                               /* inline block para centrado */
+  text-align: center;                                  /* centrado */
+  width: 100%;                                         /* ocupar ancho disponible */
+  box-sizing: border-box;                              /* box-sizing */
+  font-size: 1rem;                                     /* tamaño de fuente */
+}
+
+/* botón social base */
+.social-btn {
+  display: inline-block;                               /* inline-block */
+  padding: 0.6rem 1.2rem;                              /* padding */
+  border-radius: var(--border-radius);                 /* borde redondeado */
+  color: #fff;                                         /* texto blanco */
+  font-weight: bold;                                   /* negrita */
+  text-decoration: none;                               /* sin subrayado */
+  transition: transform 0.3s, background 0.3s;         /* transiciones */
+  font-size: 1rem;                                     /* tamaño de texto */
+  text-align: center;                                  /* centrado */
+  box-sizing: border-box;                              /* box-sizing */
+  width: 120px;                                        /* ancho fijo para consistencia */
+  height: 40px;                                        /* alto fijo */
+  line-height: 40px;                                   /* centrado vertical del texto */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);              /* sombra */
+  display: flex;                                       /* flex para icon + texto */
+  align-items: center;                                 /* alinear verticalmente */
+  justify-content: center;                             /* centrar horizontalmente */
+  gap: 0.5rem;                                         /* espacio entre icono y texto */
+}
+
+/* hover de botones sociales */
+.social-btn:hover {
+  transform: scale(1.1);                               /* zoom suave */
+  color: #fff;                                         /* asegurar texto blanco */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);             /* sombra mayor al hover */
+}
+
+/* ejemplos de colores por red social */
+.social-btn.instagram { background: #E4405F; }
+.social-btn.instagram:hover { background: #C13584; }
+.social-btn.facebook { background: #1877F2; }
+.social-btn.facebook:hover { background: #0F62CE; }
+.social-btn.whatsapp { background: #25D366; color: #fff; padding: 0.6rem 1rem; }
+.social-btn.whatsapp:hover { background: #1DA851; }
+.social-btn.email { background: #6a1b9a; }
+.social-btn.email:hover { background: #9c4dcc; }
+.social-btn.location { background: #00b894; }
+.social-btn.location:hover { background: #00a07f; }
+
+/* botón volver arriba (si lo usas) */
+.back-to-top {
+  display: inline-block;                               /* inline-block */
+  margin-top: 0.01rem;                                 /* margen pequeño */
+  padding: 0.6rem 1.2rem;                              /* padding */
+  background: #fafa;                                   /* fondo claro */
+  color: var(--primary);                               /* color del texto */
+  font-weight: bold;                                   /* negrita */
+  border-radius: var(--border-radius);                 /* radio */
+  text-decoration: none;                               /* sin subrayado */
+  transition: background 0.3s, transform 0.3s, color 0.3s; /* transiciones */
+  font-size: 1rem;                                     /* tamaño */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);              /* sombra */
+  box-sizing: border-box;                              /* box-sizing */
+}
+
+/* hover del botón volver arriba */
+.back-to-top:hover { background: var(--accent); color: #fff; transform: scale(1.05); }
+
+/* Smooth scroll para anclas */
+html { scroll-behavior: smooth; }
+
+/* ==============================
+   Animaciones
+   ============================== */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Título animado (usa transformaciones horizontales) */
+@keyframes slide-infinite { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+@keyframes color-change { 0%,100% { color: var(--primary); } 50% { color: #000000; } }
+
+/* clase para título animado */
+.titulo-animado {
+  display: inline-block;
+  white-space: nowrap;
+  animation: slide-infinite 12s linear infinite, color-change 6s ease-in-out infinite;
+  font-size: 1.5rem;                                    /* tamaño controlado */
+  font-weight: bold;                                   /* negrita */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);            /* sombra para legibilidad */
+  padding: 0 1rem;                                     /* padding lateral */
+  position: relative;                                  /* relativo para z-index */
+  z-index: 2;                                          /* por encima del fondo */
+}
+
+/* ==============================
+   Contenedores secciones
+   ============================== */
+.contenedor-secciones {
+  display: flex;                                       /* flex para secciones laterales */
+  gap: 2rem;                                           /* separación entre secciones */
+  max-width: var(--content-max-w);                     /* ancho máximo */
+  margin: 0 auto;                                      /* centrar horizontal */
+  padding: 0 0.2rem;                                   /* padding horizontal */
+  width: 100%;                                         /* ancho completo */
+  box-sizing: border-box;                              /* box-sizing */
+}
+
+/* tarjeta de sección */
+.seccion {
+  background: #fff;                                    /* fondo blanco */
+  border: 1px solid var(--accent);                     /* borde con acento */
+  border-radius: var(--border-radius);                 /* radio */
+  padding: 0.3rem;                                     /* padding */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);             /* sombra sutil */
+  font-size: 1rem;                                     /* tamaño del contenido */
+  box-sizing: border-box;                              /* box-sizing */
+  margin-top: 9%;
+}
+
+/* titulo de sección */
+.seccion h2 {
+  color: var(--primary);                               /* color primario */
+  margin-bottom: 0.1rem;                               /* separación inferior */
+  margin-top: 0.1rem;                                /* separación superior */  
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.15);           /* sombra ligera */
+  font-size: 1.5rem;                                   /* tamaño para h2 */
+  text-align: center;                                  /* centrado */
+}
+
+/* ==============================
+   MEDIA QUERIES / RESPONSIVE
+   ============================== */
+
+/* Tablets medianas y grandes */
+@media (max-width: 1024px) {
+  .portfolio,
+  .catalogo {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 0.75rem;
+  }
+
+  .card img {
+    height: 200px; /* ajustar altura de imagen */
+  }
+
+  .card h3 {
+    font-size: 1.1rem; /* título más pequeño */
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    line-clamp: 3; /* mantener 3 líneas máximo */
+  }
+
+  nav a {
+    font-size: 1.8rem; /* enlaces más pequeños */
+  }
+  .hero{
+    margin-top: 1rem;
+  }
+}
+
+/* Tablets pequeñas / pantallas horizontales */
+@media (max-width: 768px) {
+  .portfolio,
+  .catalogo {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    gap: 0.5rem;
+  }
+
+  .card img {
+    height: 180px; /* reducir altura de imagen */
+  }
+
+  .card h3 {
+    font-size: 1rem; 
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    line-clamp: 3;
+  }
+
+  .titulo-contenedor h1 {
+    font-size: 1rem; /* título del header más pequeño */
+  }
+
+  nav a {
+    font-size: 1.5rem;
+  }
+
+  #search {
+    width: 95%; /* input más ancho para pantallas pequeñas */
+  }
+}
+
+/* Móviles / pantallas pequeñas */
+@media (max-width: 480px) {
+  .portfolio,
+  .catalogo {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    gap: 0.5rem;
+  }
+
+  .card img {
+    height: 160px; /* ajustar imagen para móvil */
+  }
+
+  .card h3 {
+    font-size: 0.95rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+    line-clamp: 3;
+  }
+
+  .titulo-contenedor h1 {
+    font-size: 0.95rem; /* título header más pequeño */
+  }
+
+  nav a {
+    font-size: 1rem;
+    padding: 0.1rem;
+  }
+
+  .hero {
+    padding-top: 8rem; /* menos espacio arriba en móvil */
+  }
+
+  .hero h2,
+  .hero p {
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+
+  #search {
+    width: 95%; /* input ocupa casi todo el ancho */
+  }
+
+  .contenedor-secciones {
+    flex-direction: column; /* secciones apiladas */
+    gap: 1rem;
+  }
+
+  .seccion {
+    margin-top: 2rem; /* ajustar margen */
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .card button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+}

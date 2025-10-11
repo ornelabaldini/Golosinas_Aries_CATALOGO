@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Redirige automáticamente en 3 segundos a la página de catálogo mayorista -->
+  <meta http-equiv="refresh" content="3; url=MAYORISTA_CATALOGO.html">
+
+  <title>🛍️ Golosinas Aries - Mejores precios</title>
+
+  <style>
+    /* ==============================
+       Reset básico
+       ============================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ==============================
+       Body: centrado, fondo y tipografía de la web
+       ============================== */
+    body {
+      font-family: 'Arial', sans-serif; /* tipografía cercana a la web */
+      background: linear-gradient(135deg, #8e44ad, #6a1b9a); /* violeta degradado similar al header */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      color: #fff; /* texto blanco para contraste */
+    }
+
+    /* ==============================
+       Contenedor principal
+       ============================== */
+    .container {
+      background: linear-gradient(135deg, rgba(106,27,154,0.6), rgba(0,184,148,0.6));
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* sombra más visible */
+      max-width: 450px;
+      width: 100%;
+      animation: popIn 0.6s ease-out; /* animación de aparición */
+    }
+
+    /* ==============================
+       Animación de aparición del contenedor
+       ============================== */
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* ==============================
+       Título y párrafo
+       ============================== */
+    h1 { 
+      font-size: 5em; 
+      margin-bottom: 15px; 
+      color: rgb(22, 255, 243); 
+    }
+
+    p { 
+      font-size: 1.1em; 
+      margin: 10px 0; 
+      color: #fff;
+    }
+
+    /* ==============================
+       Estilo de enlaces
+       ============================== */
+    a { 
+      color: #00b894; /* turquesa acento de la web */
+      font-weight: bold; 
+      text-decoration: none; 
+    }
+
+    a:hover { text-decoration: underline; }
+
+    /* ==============================
+       Emoji decorativo flotante
+       ============================== */
+    .emoji {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      display: block;
+      animation: float 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes float { 
+      0% { transform: translateY(0); } 
+      100% { transform: translateY(-10px); } 
+    }
+
+    /* ==============================
+       Responsive para celulares
+       ============================== */
+    @media (max-width: 480px) {
+      .container { padding: 20px 15px; }
+      h1 { font-size: 1.5em; }
+      p { font-size: 1em; }
+      .emoji { font-size: 2em; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contenedor principal -->
+  <div class="container">
+    <!-- Emoji decorativo, se mueve arriba y abajo -->
+    <span class="emoji">♈ 🔥</span> 
+    <!-- Título de la página -->
+    <h1>Golosinas Aries </h1>
+  </div>
+
+  <!-- ==============================
+       Redirección con JavaScript como fallback
+       ============================== -->
+  <script>
+    setTimeout(function() {
+      window.location.href = "MAYORISTA_CATALOGO.html";
+    }, 4000); // 3 segundos
+  </script>
+
+</body>
+</html>
