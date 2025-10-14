@@ -17,6 +17,7 @@
   --content-max-w: 1200px;
   /* tamaño base de fuente (puedes ajustar si quieres escalar todo) */
   --base-font: 13px;
+  --border-radius: 10px;
 }
 
 /* ==============================
@@ -141,7 +142,7 @@ nav a:hover {
   position: absolute;                                  /* posición absoluta dentro del hero */
   width: 100%;                                         /* ocupa ancho completo */
   height: 80%;                                         /* altura del overlay */
-  margin-top: 4rem;                                    /* separación superior visual */
+  margin-top: 3rem;                                    /* separación superior visual */
   top: 0;                                              /* arriba del hero */
   left: 0;                                             /* a la izquierda */
   opacity: 1;                                          /* opacidad completa (puedes bajar para más transparencia) */
@@ -197,7 +198,7 @@ nav a:hover {
   text-align: center;                                  /* centra el texto */
   padding: 0.8rem 1rem;                                /* padding interno cómodo */
   background: #fff;                                    /* fondo blanco */
-  border-radius: var(--border-radius);                 /* bordes redondeados */
+  border-radius: 0px;                 /* bordes redondeados */
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);             /* sombra suave */
   font-size: 1rem;                                     /* tamaño de fuente */
   max-width: var(--content-max-w);                     /* ancho máximo del bloque */
@@ -227,6 +228,7 @@ nav a:hover {
   padding: 0.5rem 0.2rem;                              /* padding interno */
   width: 100%;                                         /* ocupa todo el ancho disponible */
   box-sizing: border-box;                              /* box-sizing */
+  border-radius: 0px;
 }
 
 /* alias por si usas .catalogo */
@@ -236,6 +238,7 @@ nav a:hover {
   gap: 1rem;                                           /* gap igual */
   width: 100%;                                         /* ancho completo */
   box-sizing: border-box;                              /* box-sizing */
+  
 }
 
 /* ==============================
@@ -258,6 +261,21 @@ nav a:hover {
   height: 100%;                                        /* que la tarjeta ocupe el alto del grid cell */
   box-sizing: border-box;                              /* box-sizing */
   min-height: 260px;                                   /* altura mínima para consistencia visual */
+  position: relative; /* necesario para colocar el overlay */
+}
+
+.card .mas-fotos {
+  position: absolute;
+  top: 8px;          /* arriba de la imagen */
+  right: 8px;        /* a la derecha */
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  pointer-events: none; /* para que no interfiera con el click en la card */
+  font-weight: bold;
+  z-index: 2;
 }
 
 /* efecto hover en la tarjeta */
@@ -327,131 +345,135 @@ nav a:hover {
   transform: translateY(-2px);                         /* pequeño movimiento hacia arriba */
 }
 
-
-/* ==============================
-   Modal (pop-up) de catálogo
-   ============================== */
+/* ==========================
+   Modal principal
+   ========================== */
 .modal {
-  display: none;                                       /* oculto por defecto */
-  position: fixed;                                     /* fijo para cubrir toda la pantalla */
-  z-index: 1300;                                       /* z-index más alto que el header */
-  left: 0;                                             /* empieza en la izquierda */
-  top: 0;                                              /* empieza arriba */
-  width: 100%;                                         /* ocupa todo el ancho */
-  height: 100%;                                        /* ocupa todo el alto */
-  background-color: rgba(0,0,0,0.6);                   /* overlay semitransparente */
-  justify-content: center;                             /* centra horizontalmente el contenido del modal */
-  align-items: center;                                 /* centra verticalmente */
-  padding: 1rem;                                       /* padding interno para pantallas pequeñas */
-  box-sizing: border-box;                              /* box-sizing */
-  overflow: auto;                                      /* scroll interno si el contenido es alto */
+  display: none;
+  position: fixed;
+  z-index: 1300;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
-/* contenido interior del modal */
+/* Contenido interior */
 .modal-content {
-  max-width: 90%;                                      /* ancho máximo relativo a la ventana */
-  max-height: 90%;                                     /* altura máxima relativa */
-  background: #6a1b9a;                                 /* fondo morado sólido del modal */
-  color: #fff;                                         /* texto blanco dentro del modal */
-  padding: 1rem;                                       /* padding interior */
-  border-radius: 12px;                                 /* bordes redondeados */
-  text-align: center;                                  /* centrado de texto */
-  overflow: hidden;                                    /* evita overflow visible dentro del modal */
-  position: relative;                                  /* relativo para la cruz de cierre y flechas */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);             /* sombra alrededor del modal */
-  display: flex;                                       /* flex para composición interna */
-  flex-direction: column;                              /* direcc vertical */
-  align-items: center;                                 /* centra horizontalmente */
-  justify-content: center;                             /* centra verticalmente */
-  gap: 0.1rem;                                           /* espacio entre elementos */
-  animation: fadeIn 0.25s ease;                        /* animación de aparición */
-  font-size: 2rem;
+  max-width: 600px;       /* fijo máximo ancho */
+  width: 90%;
+  max-height: 90%;
+  background: #6a1b9a;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  animation: fadeIn 0.25s ease;
+  border: 3px solid;
+  border-image: linear-gradient(45deg, var(--primary), var(--accent)) 1;
 }
 
-/* imagen dentro del modal */
+/* Imagen del modal */
 .modal-content img {
-  max-width: 100%;                                     /* que la imagen no exceda el ancho del modal */
-  max-height: 70vh;                                    /* limitar la altura a 70% de la ventana */
-  object-fit: contain;                                 /* mantener proporción completa */
-  border-radius: 8px;                                  /* bordes ligeramente redondeados */
-  cursor: zoom-in;                                     /* cursor para indicar zoom posible */
-  transition: transform 0.3s ease;                     /* transición para .zoomed */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);             /* sombra de la imagen */
-  z-index: 1;                                          /* capa base dentro del modal */
+  max-width: 100%;
+  max-height: 60vh;   /* ajusta la altura según pantalla */
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1;
 }
 
-/* clase que amplia la imagen (zoom) */
+/* Zoom */
 .modal-content img.zoomed {
-  transform: scale(1.9);                               /* escala grande (no exagerada) */
-  cursor: zoom-out;                                    /* cursor para reducir */
-  z-index: 10;                                         /* por encima de otros elementos */
+  transform: scale(1.8);
+  cursor: zoom-out;
+  z-index: 10;
 }
 
-/* cruz para cerrar */
+/* Cruz para cerrar */
 .close {
-  position: absolute;                                  /* absoluta dentro de modal-content */
-  top: 10px;                                           /* a 10px desde arriba */
-  right: 20px;                                         /* a 20px desde la derecha */
-  font-size: 1.6rem;                                   /* tamaño visible, no gigante */
-  font-weight: bold;                                   /* negrita */
-  cursor: pointer;                                     /* cursor de mano */
-  z-index: 200;                                        /* por encima de todo dentro del modal */
-  user-select: none;                                   /* evita selección accidental */
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 200;
+  user-select: none;
+  color: black
 }
 
-/* hover de la cruz */
-.close:hover {
-  color: #000;                                         /* en hover cambia a oscuro para contraste */
-}
+.close:hover { color: #8006b1; }
 
-/* botones de navegación (flechas) dentro del modal */
+/* Flechas */
 .modal-content .prev,
 .modal-content .next {
-  position: absolute;                                  /* posición absoluta dentro del modal */
-  top: 50%;                                            /* centrado vertical */
-  transform: translateY(-50%);                         /* corrección de centrado vertical */
-  width: 40px;                                         /* ancho del botón */
-  height: 40px;                                        /* alto del botón */
-  display: flex;                                       /* flex para centrar el símbolo */
-  justify-content: center;                             /* centrado horizontal */
-  align-items: center;                                 /* centrado vertical */
-  background: rgba(0, 0, 0, 0.8);                      /* fondo negro semi-opaco */
-  color: #fff;                                         /* símbolo en blanco */
-  font-size: 1.2rem;                                   /* tamaño del símbolo */
-  font-weight: bold;                                   /* negrita */
-  border: none;                                        /* sin borde */
-  border-radius: 50%;                                  /* botón circular */
-  cursor: pointer;                                     /* cursor en hover */
-  outline: none;                                       /* sin outline por defecto */
-  z-index: 101;                                        /* por encima de la imagen */
-  transition: background 0.2s;                         /* transición de fondo */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 101;
+  transition: background 0.2s;
 }
-
-/* posición de cada flecha (izquierda/derecha) */
 .modal-content .prev { left: 12px; }
 .modal-content .next { right: 12px; }
-
-/* hover en flechas */
 .modal-content .prev:hover,
-.modal-content .next:hover { background: rgba(0, 0, 0, 0.95); }
+.modal-content .next:hover { background: rgba(0,0,0,0.95); }
 
-/* botón genérico de carousel (si lo usas) */
-.carousel-btn {
-  padding: 0.3rem 0.6rem;                              /* padding pequeño */
-  margin: 0 0.3rem;                                    /* separación horizontal */
-  border: none;                                        /* sin borde */
-  background: var(--primary);                          /* fondo principal */
-  color: #fff;                                         /* texto blanco */
-  border-radius: var(--border-radius);                 /* radio de botón */
-  cursor: pointer;                                     /* cursor puntero */
-  transition: background 0.3s;                         /* transición suave */
-  font-size: 0.95rem;                                  /* tamaño de texto */
-  font-weight: bold;                                   /* negrita */
-  user-select: none;                                   /* evita selección */
+/* Animación del carrito */
+@keyframes carrito-anim {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+.animar-carrito {
+  animation: carrito-anim 0.3s ease;
 }
 
-/* hover para ese botón */
-.carousel-btn:hover { background: var(--accent); transform: scale(1.05); }
+/* Carrito: cantidad + y - */
+.cantidad-container {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.cantidad-btn {
+  padding: 0.2rem 0.5rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s, transform 0.1s;
+}
+.cantidad-btn:hover { background: #8e24aa; transform: scale(1.1); }
+.cantidad { min-width: 20px; display: inline-block; text-align: center; }
+
 
 /* ==============================
    Buscador (centro del catálogo)
@@ -525,7 +547,6 @@ main {
   max-width: var(--content-max-w);                     /* ancho máximo del contenido */
   margin: 0 auto;                                      /* centrar horizontalmente */
   width: 100%;                                         /* ocupar ancho */
-  box-sizing: border-box;                              /* box-sizing */
   min-height: 60vh;                                    /* altura mínima para buena presencia */
   font-size: 1rem;                                     /* tamaño base de fuente */
   background: #fcfbfb;                                 /* fondo blanco para la zona principal */
@@ -534,6 +555,7 @@ main {
   overflow: visible;                                   /* overflow visible por defecto */
   padding-bottom: 0.1rem;                                /* espacio inferior */
   padding-top: 0.1rem;                                 /* espacio superior mínimo (el push principal lo hace .main arriba) */
+  border-radius: 0px 0px;
 }
 
 /* ==============================
@@ -628,11 +650,10 @@ footer p {
 
 /* botón volver arriba (si lo usas) */
 .back-to-top {
-  display: inline-block;                               /* inline-block */
-  margin-top: 0.01rem;                                 /* margen pequeño */
-  padding: 0.6rem 1.2rem;                              /* padding */
-  background: #fafa;                                   /* fondo claro */
-  color: var(--primary);                               /* color del texto */
+  margin-top: 0.2rem;                                 /* margen pequeño */
+  padding: 0.7rem 1.2rem;                              /* padding */
+  background: rgba(3, 2, 3, 0.667);                                   /* fondo claro */
+  color: white;                               /* color del texto */
   font-weight: bold;                                   /* negrita */
   border-radius: var(--border-radius);                 /* radio */
   text-decoration: none;                               /* sin subrayado */
@@ -640,6 +661,12 @@ footer p {
   font-size: 1rem;                                     /* tamaño */
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);              /* sombra */
   box-sizing: border-box;                              /* box-sizing */
+  float: left;
+  border-radius: 50px;
+  position: fixed;      /* se queda visible al hacer scroll */
+  bottom: 30px;         /* separación desde el borde inferior */
+  left: 30px;           /* separación desde el borde izquierdo */
+  
 }
 
 /* hover del botón volver arriba */
@@ -834,4 +861,66 @@ html { scroll-behavior: smooth; }
     font-size: 0.85rem;
     padding: 0.4rem 0.6rem;
   }
+}
+
+/* ==============================
+   Carrito de compras (icono y dropdown)
+   ============================== */
+
+#carrito-contenedor {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#carrito-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #fff;
+  position: relative;
+}
+
+#carrito-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+}
+
+#carrito-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 250px;
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+#carrito-dropdown ul {
+  list-style: none;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#carrito-dropdown button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+#carrito-count.animar-carrito {
+  transform: scale(1.5);
+  transition: transform 0.3s ease;
+  color: #ff0000;
 }

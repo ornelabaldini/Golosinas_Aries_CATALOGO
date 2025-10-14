@@ -3,15 +3,16 @@
 // ========================
 
 // 🔹 Referencias seguras al modal (si existe)
-const modal = document.getElementById('modal');
+const modal = document.getElementById('modal'); 
 if (modal) {
 
   const modalImg = document.getElementById('modal-img');      // Imagen del modal
   const modalTitle = document.getElementById('modal-title');  // Título del modal
   const modalContent = modal.querySelector('.modal-content'); // Contenedor interno
+  
 
   // Crear flechas y contador solo una vez
-  const prevBtn = document.createElement('div');
+  const prevBtn = document.createElement('div');  
   prevBtn.textContent = '<';
   prevBtn.classList.add('prev');
 
@@ -132,10 +133,22 @@ if (modal) {
   // ========================
   // ABRIR MODAL AL TOCAR CARD
   // ========================
-  const cards = document.querySelectorAll('.card');
+  const cards = document.querySelectorAll('.card'); 
   cards.forEach(card => {
-    card.addEventListener('click', () => abrirModal(card));
+  const titulo = card.querySelector('h3').textContent;
+  const cantidadImgs = imagenesProducto[titulo]?.length || 1;
+
+  if (cantidadImgs > 1) {
+    const overlay = document.createElement('span');
+    overlay.className = 'mas-fotos';
+    overlay.textContent = `+${cantidadImgs - 1} fotos`;
+    card.appendChild(overlay);
+  }
+});
+  cards.forEach(card => {
+    card.onclick = () => abrirModal(card);
   });
+  
 }
 
 
@@ -180,4 +193,147 @@ document.addEventListener("DOMContentLoaded", () => {
   // Escucha en móviles y PC
   searchInput.addEventListener("input", filtrarProductos);
   searchInput.addEventListener("keyup", filtrarProductos);
+});
+
+/*
+// ========================
+// CARRITO DE COMPRAS
+// ========================
+
+// Referencias a elementos del carrito
+
+
+const carritoBtn = document.getElementById('carrito-btn');  // Botón del carrito  
+const carritoDropdown = document.getElementById('carrito-dropdown');    // Dropdown del carrito
+const carritoItems = document.getElementById('carrito-items');  // Lista de items en el carrito                                           
+const carritoCount = document.getElementById('carrito-count');             // Contador de items   
+const carritoTotal = document.getElementById('carrito-total');         // Total del carrito
+const vaciarCarritoBtn = document.getElementById('vaciar-carrito');           // Botón para vaciar carrito  
+
+
+let carrito = []; // Array para almacenar productos
+
+// Mostrar u ocultar dropdown
+carritoBtn.addEventListener('click', () => {
+  carritoDropdown.style.display = carritoDropdown.style.display === 'block' ? 'none' : 'block';
+});                               
+
+// Función para agregar productos
+// Animación cuando se agrega producto
+function agregarAlCarrito(nombre, precio) {
+  const productoExistente = carrito.find(p => p.nombre === nombre);
+  if(productoExistente) {
+    productoExistente.cantidad = (productoExistente.cantidad || 1) + 1;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
+  actualizarCarrito();
+
+  // Animación del contador
+  carritoCount.classList.add('animar-carrito');
+  setTimeout(() => carritoCount.classList.remove('animar-carrito'), 300);
+}
+
+// Actualizar carrito con + y -
+function actualizarCarrito() {
+  carritoItems.innerHTML = '';
+  let total = 0;
+
+  carrito.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.classList.add('carrito-item');
+
+    const nombre = document.createElement('span');
+    nombre.textContent = item.nombre;
+    nombre.classList.add('carrito-nombre');
+
+    const precio = document.createElement('span');
+    precio.textContent = `$${item.precio}`;
+    precio.classList.add('carrito-precio');
+
+    const cantidadContainer = document.createElement('div');
+    cantidadContainer.classList.add('cantidad-container');
+
+    const btnMenos = document.createElement('button');
+    btnMenos.textContent = '-';
+    btnMenos.classList.add('cantidad-btn');
+    btnMenos.onclick = () => {
+      if(item.cantidad > 1) {
+        item.cantidad--;
+      } else {
+        carrito.splice(index, 1);
+      }
+      actualizarCarrito();
+    };
+
+    const cantidad = document.createElement('span');
+    cantidad.textContent = item.cantidad || 1;
+    cantidad.classList.add('cantidad');
+
+    const btnMas = document.createElement('button');
+    btnMas.textContent = '+';
+    btnMas.classList.add('cantidad-btn');
+    btnMas.onclick = () => {
+      item.cantidad = (item.cantidad || 1) + 1;
+      actualizarCarrito();
+    };
+
+    cantidadContainer.appendChild(btnMenos);
+    cantidadContainer.appendChild(cantidad);
+    cantidadContainer.appendChild(btnMas);
+
+    const totalProducto = document.createElement('span');
+    totalProducto.textContent = `$${item.precio * (item.cantidad || 1)}`;
+    totalProducto.classList.add('total-producto');
+
+    li.appendChild(nombre);
+    li.appendChild(precio);
+    li.appendChild(cantidadContainer);
+    li.appendChild(totalProducto);
+
+    carritoItems.appendChild(li);
+
+    total += item.precio * (item.cantidad || 1);
+  });
+
+  carritoCount.textContent = carrito.reduce((acc, p) => acc + (p.cantidad || 1), 0);
+  carritoTotal.textContent = `Total: $${total}`;
+}
+
+// Vaciar carrito
+vaciarCarritoBtn.addEventListener('click', () => {
+  carrito = [];
+  actualizarCarrito();
+}); 
+
+// Inicializar carrito
+actualizarCarrito();
+
+// Cerrar dropdown al hacer clic fuera
+window.addEventListener('click', (e) => {
+  if (!carritoBtn.contains(e.target) && !carritoDropdown.contains(e.target)) {
+    carritoDropdown.style.display = 'none';
+  }
+}); */
+
+// Número de WhatsApp
+const numero = "542236010443";
+
+// Seleccionamos todos los botones de "Pedir por WhatsApp"
+const botones = document.querySelectorAll('.btn-carrito');
+
+botones.forEach(boton => {
+  boton.addEventListener('click', () => {
+    const card = boton.closest('.card');
+
+    const nombre = card.querySelector('h3').innerText;
+    const precioFormateado = card.querySelector('p').innerText.trim();
+
+    // Mensaje para WhatsApp, mostrando el precio tal como en tu HTML
+    const mensaje = `Quiero agregar esto: *${nombre}* que cuesta: ${precioFormateado}.`;
+
+    // Abrimos WhatsApp en nueva pestaña
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+  });
 });
