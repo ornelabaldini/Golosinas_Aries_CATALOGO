@@ -31,25 +31,26 @@ if (modal) {
   // IMÁGENES POR PRODUCTO
   // ========================
   const imagenesProducto = {
-    "Alcancías con gelatinas": ["img/alcancias.jpg","img/tigre.jpg","img/osito.jpg","img/piguin.jpg","img/rosa.jpg"],
-    "Gomitas blandas Ojos (30u)": ["img/ojos.jpg","img/gomitasblandas1.jpg","img/gomitasblandas2.jpg","img/gomitasblandas3.jpg","img/gomitasblandas4.jpg","img/gomitasblandas5.jpg","img/gomitasblandas7.jpg","img/gomitasblandas9.jpg","img/gomitasblandas8fantasma.jpg"],
+    "Alcancias con gelatinas": ["img/alcancias1.jpg","img/alcancias2.jpg","img/alcancias3.jpg"],
     "Chupetín Merlina": ["img/merlina.jpg","img/merliina.jpg"],
-    "Transformers": ["img/tr.jpg","img/transformer.jpg","img/2.jpg","img/3.jpg","img/2ss.jpg","img/ddd.jpg"],
-    "Gomitas Bull dog": ["img/bull_dog_frutillaa.jpg","img/bull_dog_sandia.jpg"],
-    "Chupetín con polvo ácido Brain(30u)": ["img/chupetinBrain.jpg","img/cajaBrain.jpg"],
-    "Chupetín con polvo ácido (30u)": ["img/chupetinConAcido.jpg","img/cajaChupetinAcido.jpg"],
-    "Burbujeros (24u)": ["img/burbujero3.jpg","img/burbujero.jpg", "img/burbujero2.jpg", "img/burbujero4.jpg"],
+    "Chupetin con polvo acido Brain(30u)": ["img/chupetinBrain.jpg","img/cajaBrain.jpg"],
+    "Chupetin con polvo acido skull (30u)": ["img/chupetinConAcido.jpg","img/cajaChupetinAcido.jpg"],
     "Autos de carrera con chicles(30u)": ["img/carrera.jpg","img/reversacarrera.jpg"],
     "Brochetas de ojos (x30 brochetas)": ["img/brochetas3.jpg","img/brochetas.jpg"],
     "Remera pimball + chicles(x30)": ["img/pimballremera.jpg","img/reversaremera.jpg"],
     "Celu + chicles(x30)": ["img/pimballip.jpg","img/reversaip.jpg"],
-    "Chupetín Calabaza conpolvo ácido (30u)": ["img/chupetinCalabaza.jpg","img/chupetincalabaza1.jpg", "img/chupetincalabaza2.jpg"],
-    "Chupetines con formas (x30)": ["img/chupetinesconformas1.jpg", "img/chupetinesconformas2.jpg",],
+    "Chupetin Calabaza conpolvo ácido (30u)": ["img/chupetinCalabaza.jpg","img/chupetincalabaza1.jpg", "img/chupetincalabaza2.jpg"],
+    "Chupetines con formas (x30) ": ["img/chupetinesconformas1.jpg", "img/chupetinesconformas2.jpg",],
     "🎃 Halloween chupetines (30u)": ["img/halloween1.jpg","img/halloween2.jpg","img/halloween3.jpg","img/halloween4.jpg",],
     "Gelatinas con formas (30u)": ["img/gelatinaDiferentesSabores2.jpg", "img/gelatinaDiferentesSabores3.jpg", "img/gelatinaDiferentesSabores4.jpg", "img/gelatinaDiferentesSabores5.jpg"],
+    "Chupetines de Corona con LED (x30u)": ["img/chupetinesconled1.jpg", "img/corona2.jpg"],
+    "Gomitas (30u)": ["img/gomitablandaCara3.jpg","img/gomitablandaCara2.jpg"],
+    "Gomitas blandas Selección Argentina (30u)": ["img/seleccion.jpg", "img/seleccion1.jpg", "img/seleccion2.jpg",],
+    "Cool Mint sabores frutales (x30u)": ["img/coolmint.jpg","img/coolmint2.jpg"],
+    "Trompetas con chupetin y sonido (30u)": ["img/trompeta1.jpg", "img/trompetas.jpg"],
+
   };
 
-  
 
   // Variables de control
   let currentImages = [];
@@ -319,21 +320,33 @@ window.addEventListener('click', (e) => {
 // Número de WhatsApp
 const numero = "542236010443";
 
-// Seleccionamos todos los botones de "Pedir por WhatsApp"
 const botones = document.querySelectorAll('.btn-carrito');
 
 botones.forEach(boton => {
-  boton.addEventListener('click', () => {
-    const card = boton.closest('.card');
+  boton.addEventListener('click', (event) => {
+    event.stopPropagation();
 
+    const card = boton.closest('.card');
     const nombre = card.querySelector('h3').innerText;
     const precioFormateado = card.querySelector('p').innerText.trim();
 
-    // Mensaje para WhatsApp, mostrando el precio tal como en tu HTML
-    const mensaje = `Quiero agregar esto: *${nombre}* que cuesta: ${precioFormateado}.`;
+    let mensaje = '';
 
-    // Abrimos WhatsApp en nueva pestaña
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    // Pasamos todo a minúsculas para evitar errores por espacios o mayúsculas
+    const textoBoton = boton.innerText.toLowerCase();
+
+    if (textoBoton.includes('agregar')) {
+      mensaje = `Quiero agregar esto: *${nombre}* que cuesta: ${precioFormateado}.`;
+    } else if (textoBoton.includes('consulta')) {
+      mensaje = `Vengo del catálogo y quiero hacer una consulta sobre este producto: *${nombre}*.`;
+    }
+
+    if (mensaje) { // solo abre si hay mensaje válido
+      const url = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    } else {
+      console.warn('⚠️ No se generó mensaje. Texto del botón:', boton.innerText);
+    }
   });
 });
+

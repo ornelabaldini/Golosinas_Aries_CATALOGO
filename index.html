@@ -57,45 +57,67 @@
       
       <div class="portfolio">
 
+       <div class="card">
+          <img src="img/bombones_surtidos.jpg" alt="Bombones Surtidos" onclick="abrirModal(this)">
+          <h3>Bocaditos Bel (50 unidades)</h3>
+          <p>$7.200</p>
+          <button class="btn-carrito">Agregar al pedido</button>
+          <button class="btn-carrito">Hacer una consulta</button>
+        </div>
+
       <div class="card">
-        <img src="img/burbujero3.jpg" alt="Burbujero mágico" onclick="abrirModal(this)">
+        <img src="img/burbujeros.jpg" alt="Burbujero" onclick="abrirModal(this)">
         <h3>Burbujero(x24u)</h3>
         <p>$15.000</p>
         <button class="btn-carrito">Agregar al pedido</button>
+        <button class="btn-carrito">Hacer una consulta</button>
       </div>
 
       <div class="card">
-        <img src="img/alcancias.jpg" alt="Alcancías con gelatinas" onclick="abrirModal(this)">
-        <h3>Alcancías con gelatinas</h3>
+        <img src="img/alcancias1.jpg" alt="Alcancias con gelatinas" onclick="abrirModal(this)">
+        <h3>Alcancias con gelatinas</h3>
         <p>$4.500 (CADA UNA)</p>
         <button class="btn-carrito">Agregar al pedido</button>
-      </div>
-
-      <div class="card">
-        <img src="img/lolly.jpg" alt="Foot Lollipop" onclick="abrirModal(this)">
-        <h3>Chupetín con polvo acido (x30u)</h3>
-        <p>$8.400</p>
-        <button class="btn-carrito">Agregar al pedido</button>
+        <button class="btn-carrito">Hacer una consulta</button>
       </div>
       
-
       <div class="card">
-        <img src="img/poke.jpg" alt="Bolas Pokémon con sorpresa y caramelo" onclick="abrirModal(this)">
-        <h3>Bolas Pokémon con sorpresa y caramelo</h3>
+        <img src="img/poke.jpg" alt="Bolas Pokemon con sorpresa y caramelo" onclick="abrirModal(this)">
+        <h3>Bolas Pokemon con sorpresa y caramelo</h3>
         <p>$10.500</p>
         <button class="btn-carrito">Agregar al pedido</button>
+        <button class="btn-carrito">Hacer una consulta</button>
+      </div>
+
+
+      <div class="card">
+          <img src="img/lataschicas.jpg" alt="Latitas con chicles" onclick="abrirModal(this)">
+          <h3>Latitas con chicles (x30)</h3>
+          <p>$11.500</p>
+          <button class="btn-carrito">Agregar al pedido</button>
+          <button class="btn-carrito">Hacer una consulta</button>
       </div>
 
       <div class="card">
-        <img src="img/nutello.jpg" alt="Nutello" onclick="abrirModal(this)">
-        <h3>Nutello(x30u)</h3>
-        <p>$8.500</p>
-        <button class="btn-carrito">Agregar al pedido</button>
+          <img src="img/yummyfrutillaconcrema.jpg" alt="Yummy frutilla con crema" onclick="abrirModal(this)">
+          <h3>Gomitas Yummy frutilla con crema (500g)</h3>
+          <p>$6.500</p>
+          <button class="btn-carrito">Agregar al pedido</button>
+          <button class="btn-carrito">Hacer una consulta</button>
       </div>
 
       </div>
     </section>
-    
+
+     <!-- Modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modal-img" src="" alt="Producto">
+        <p id="modal-title"></p>
+      </div>
+    </div>
+
   </main>
 
   <!-- Footer con botones de redes sociales -->

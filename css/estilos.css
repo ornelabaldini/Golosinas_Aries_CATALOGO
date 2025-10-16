@@ -345,6 +345,12 @@ nav a:hover {
   transform: translateY(-2px);                         /* pequeño movimiento hacia arriba */
 }
 
+   .card .btn-carrito {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px; /* separa los botones */
+  }
+
 /* ==========================
    Modal principal
    ========================== */
@@ -418,7 +424,7 @@ nav a:hover {
   color: black
 }
 
-.close:hover { color: #8006b1; }
+.close:hover { color: #08ffea; }
 
 /* Flechas */
 .modal-content .prev,
@@ -757,6 +763,12 @@ html { scroll-behavior: smooth; }
     line-clamp: 3; /* mantener 3 líneas máximo */
   }
 
+     .card .btn-carrito {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px; /* separa los botones */
+  }
+
   nav a {
     font-size: 1.8rem; /* enlaces más pequeños */
   }
@@ -784,6 +796,11 @@ html { scroll-behavior: smooth; }
   .card p {
     font-size: 0.9rem;
     line-clamp: 3;
+  }
+     .card .btn-carrito {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px; /* separa los botones */
   }
 
   .titulo-contenedor h1 {
@@ -818,6 +835,12 @@ html { scroll-behavior: smooth; }
   .card p {
     font-size: 0.85rem;
     line-clamp: 3;
+  }
+
+    .card .btn-carrito {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px; /* separa los botones */
   }
 
   .titulo-contenedor h1 {
